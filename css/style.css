@@ -241,7 +241,7 @@ nav ul li a {
 /*-----------------------------------------------------------------------------------*/
 
 #header {
-  background: url("../images/cover\ copy.jpeg") repeat scroll center center / cover;
+  background: url("../images/cover.jpeg") repeat scroll center center / cover;
   background-color: rgba(0, 0, 0, 0.6);
   height: 100vh;
   width: 100%;
@@ -262,7 +262,6 @@ nav ul li a {
 .header-content h1 {
   font-size: 80px;
   font-weight: 700;
-  margin-top: 500px;
   margin-bottom: 10px;
   text-transform: uppercase;
   color: #fff;
@@ -286,6 +285,28 @@ nav ul li a {
 .header-content .list-social li i {
   color: #fff;
   font-size: 30px;
+}
+
+@media (max-width: 500px) {
+  /* CSS that should be displayed if width is equal to or less than 800px goes here */
+  #header {
+    background: url("../images/cover\ copy.jpeg") repeat scroll center center / cover;
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100vh;
+    width: 100%;
+    /* opacity: .9; */
+    
+  }
+
+  .header-content h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 500px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
 }
 
 

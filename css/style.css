@@ -27,6 +27,49 @@ body {
   box-sizing: border-box;
 }
 
+span
+{
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
+  animation: fadeInOut 5s linear infinite;
+}
+
+@keyframes fadeInOut
+{
+  0%,100%
+  {
+    opacity: 0;
+  }
+  20%,80%
+  {
+    opacity: 1;
+  }
+}
+
+span::before
+{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("../images/heart.png");
+  background-size: cover;
+  animation: moveShape 3s linear infinite;
+}
+
+@keyframes moveShape
+{
+  0%
+  {
+    transform: translate(0) rotate(0deg);
+  }
+  100%
+  {
+    transform: translate(300px) rotate(360deg);
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }

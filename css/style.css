@@ -241,7 +241,7 @@ nav ul li a {
 /*-----------------------------------------------------------------------------------*/
 
 #header {
-  background: url("../images/cover.jpeg") repeat scroll center center / cover;
+  background: url("../images/cover\ copy.jpeg") repeat scroll center center / cover;
   background-color: rgba(0, 0, 0, 0.6);
   height: 100vh;
   width: 100%;
@@ -262,6 +262,7 @@ nav ul li a {
 .header-content h1 {
   font-size: 80px;
   font-weight: 700;
+  margin-top: 500px;
   margin-bottom: 10px;
   text-transform: uppercase;
   color: #fff;

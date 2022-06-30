@@ -79,8 +79,8 @@ $(document).ready(function() {
 
   $(function() {
     typed.typed({
-      strings: ["7/30/2021", "I Love You", "I Miss You"],
-      typeSpeed: 100,
+      strings: ["7/30/2021", "I Love You"],
+      typeSpeed: 125,
       loop: true,
     });
   });

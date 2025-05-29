@@ -4,62 +4,88 @@ $(document).ready(function() {
   'use strict';
 
   // ========================================================================= //
+  //  // NAVBAR SETUP
+  // ========================================================================= //
+  
+  // Navbar height for offset calculations
+  const navbarHeight = $('#navbar').outerHeight();
+
+  // Function to set active nav link based on scroll position
+  function setActiveNavLink() {
+    const scrollPos = $(document).scrollTop();
+    const offset = navbarHeight + 10;
+    
+    $('#navbar .nav-menu li a').each(function() {
+      const currLink = $(this);
+      const refElement = $(currLink.attr("href"));
+      
+      if (refElement.length && 
+          refElement.offset().top <= scrollPos + offset && 
+          refElement.offset().top + refElement.outerHeight() > scrollPos + offset) {
+        $('#navbar .nav-menu li a').removeClass("active");
+        currLink.addClass("active");
+      }
+    });
+  }
+
+  // Navbar toggle for mobile
+  $('.responsive').on('click', function() {
+    $('#navbar .nav-menu').toggleClass('show');
+  });
+
+  // Close mobile menu when clicking links
+  $('#navbar .nav-menu li a').on('click', function() {
+    if ($(window).width() < 992) {
+      $('#navbar .nav-menu').removeClass('show');
+    }
+  });
+
+  // ========================================================================= //
   //  //SMOOTH SCROLL
   // ========================================================================= //
 
-
   $(document).on("scroll", onScroll);
 
-  $('a[href^="#"]').on('click', function(e) {
+  // Update to only target navbar links
+  $('#navbar .nav-menu li a[href^="#"]').on('click', function(e) {
     e.preventDefault();
     $(document).off("scroll");
 
-    $('a').each(function() {
-      $(this).removeClass('active');
-      if ($(window).width() < 768) {
-        $('.nav-menu').slideUp();
-      }
-    });
-
+    // Remove active class from all links
+    $('#navbar .nav-menu li a').removeClass('active');
+    // Add active class to clicked link
     $(this).addClass('active');
 
-    var target = this.hash,
-        menu = target;
-
-    target = $(target);
+    const target = this.hash;
+    const $target = $(target);
+    
     $('html, body').stop().animate({
-      'scrollTop': target.offset().top - 80
+      scrollTop: $target.offset().top - navbarHeight + 2
     }, 500, 'swing', function() {
-      window.location.hash = target.selector;
+      window.location.hash = target;
       $(document).on("scroll", onScroll);
     });
   });
 
-
   function onScroll(event) {
-    if ($('.home').length) {
-      var scrollPos = $(document).scrollTop();
-      $('nav ul li a').each(function() {
-        var currLink = $(this);
-        var refElement = $(currLink.attr("href"));
-      });
-    }
+    setActiveNavLink();
   }
+
+  // Set active nav link on page load
+  setActiveNavLink();
 
   // ========================================================================= //
   //  //NAVBAR SHOW - HIDE
   // ========================================================================= //
 
-
   $(window).scroll(function() {
-    var scroll = $(window).scrollTop();
-    if (scroll > 200 ) {
-      $("#main-nav, #main-nav-subpage").slideDown(700);
-      $("#main-nav-subpage").removeClass('subpage-nav');
+    const scroll = $(window).scrollTop();
+    if (scroll > 200) {
+      $("#navbar").css('background', 'rgba(255, 255, 255, 0.97)');
+      $("#navbar").css('box-shadow', '0 2px 15px rgba(0, 0, 0, 0.1)');
     } else {
-      $("#main-nav").slideUp(700);
-      $("#main-nav-subpage").hide();
-      $("#main-nav-subpage").addClass('subpage-nav');
+      $("#navbar").css('background', 'rgba(255, 255, 255, 0.9)');
+      $("#navbar").css('box-shadow', 'none');
     }
   });
 
@@ -85,11 +111,9 @@ $(document).ready(function() {
     });
   });
 
-
   // ========================================================================= //
   //  Owl Carousel Services
   // ========================================================================= //
-
 
   $('.services-carousel').owlCarousel({
       autoplay: true,
@@ -114,50 +138,40 @@ $(document).ready(function() {
         enabled: true
       },
       zoom: {
-        enabled: true, // By default it's false, so don't forget to enable it
-
-        duration: 300, // duration of the effect, in milliseconds
-        easing: 'ease-in-out', // CSS transition easing function
-
-        // The "opener" function should return the element from which popup will be zoomed in
-        // and to which popup will be scaled down
-        // By defailt it looks for an image tag:
+        enabled: true,
+        duration: 300,
+        easing: 'ease-in-out',
         opener: function(openerElement) {
-          // openerElement is the element on which popup was initialized, in this case its <a> tag
-          // you don't need to add "opener" option if this code matches your needs, it's defailt one.
           return openerElement.is('img') ? openerElement : openerElement.find('img');
         }
       }
     });
   };
 
-
   // Call the functions
   magnifPopup();
 
-   // ===== Countdown Section =====
-  const startDate    = new Date('2021-07-30T00:00:00');
-  const daysCountEl  = document.getElementById('daysCount');
+  // ===== Countdown Section =====
+  const startDate = new Date('2021-07-30T00:00:00');
+  const daysCountEl = document.getElementById('daysCount');
   const annivCountEl = document.getElementById('annivCountdown');
 
   // Helper: compute full years/months/days difference
   function getYMDDiff(start, end) {
     const sy = start.getFullYear(), sm = start.getMonth(), sd = start.getDate();
-    const ey = end.getFullYear(),   em = end.getMonth(),   ed = end.getDate();
+    const ey = end.getFullYear(), em = end.getMonth(), ed = end.getDate();
 
-    let years  = ey - sy;
+    let years = ey - sy;
     let months = em - sm;
-    let days   = ed - sd;
+    let days = ed - sd;
 
-    // If days negative, borrow from previous month
     if (days < 0) {
       months--;
       const prevMonth = (em - 1 + 12) % 12;
-      const prevYear  = em === 0 ? ey - 1 : ey;
+      const prevYear = em === 0 ? ey - 1 : ey;
       const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate();
       days += daysInPrevMonth;
     }
-    // If months negative, borrow from years
     if (months < 0) {
       years--;
       months += 12;
@@ -183,10 +197,10 @@ $(document).ready(function() {
       nextAnniv.setFullYear(year + 1);
     }
     const remMs = nextAnniv - now;
-    const d  = Math.floor(remMs / (1000 * 60 * 60 * 24));
-    const h  = String(Math.floor((remMs / (1000 * 60 * 60)) % 24)).padStart(2, '0');
-    const m  = String(Math.floor((remMs / (1000 * 60)) % 60)).padStart(2, '0');
-    const s  = String(Math.floor((remMs / 1000) % 60)).padStart(2, '0');
+    const d = Math.floor(remMs / (1000 * 60 * 60 * 24));
+    const h = String(Math.floor((remMs / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+    const m = String(Math.floor((remMs / (1000 * 60)) % 60)).padStart(2, '0');
+    const s = String(Math.floor((remMs / 1000) % 60)).padStart(2, '0');
 
     annivCountEl.textContent = `${d} days ${h}:${m}:${s}`;
   }
@@ -196,23 +210,60 @@ $(document).ready(function() {
   setInterval(updateCountdown, 1000);
 
   // ---- Memories Map ----
-  const map = L.map('memories-map').setView([34.0522, -118.2437], 4);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors',
+  const map = L.map('memories-map', { zoomControl: false }).setView([34.0522, -118.2437], 4);
+
+  // Modern Light Basemap
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap & CartoDB',
     maxZoom: 18,
   }).addTo(map);
 
-  // array of memory locations: [lat, lng] + popup text
+  // Controls
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(map);
+
+  // Custom heart icon
+  const heartIcon = L.divIcon({
+    html: '<i class="fas fa-heart"></i>',
+    className: 'custom-div-icon',
+    iconSize: [30, 42],
+    iconAnchor: [15, 42],
+    popupAnchor: [0, -40]
+  });
+
+  // Memory locations
   const memories = [
-    { coords: [34.0522, -118.2437], popup: 'Where we first met (LA)' },
-    { coords: [40.7128, -74.0060], popup: 'Our NYC weekend getaway' },
-    // add more as desired
+    { coords: [43.06589494223367, -89.45838150517925], popup: 'Where we first met! (Van Hise Elementary)' },
+    { coords: [43.06876951007411, -89.4269846243648], popup: 'Where we first started dating! (West High School)' },
+    { coords: [37.828523394482566, -122.26840535463208], popup: 'Our first home together!' },
   ];
 
   memories.forEach(({ coords, popup }) => {
-    L.marker(coords)
+    const marker = L.marker(coords, { icon: heartIcon })
       .addTo(map)
       .bindPopup(`<strong>${popup}</strong>`);
+
+    marker.on('click', () => {
+      const currentZoom = map.getZoom();
+      const maxZoom     = map.getMaxZoom();
+
+      // 1) Convert this marker’s latlng to screen pixels
+      const thisPoint  = map.latLngToContainerPoint(marker.getLatLng());
+
+      // 2) Count how many memories fall within 30px of that click
+      const closeBy = memories.filter(m => {
+        const p = map.latLngToContainerPoint(m.coords);
+        return thisPoint.distanceTo(p) < 30;
+      }).length;
+
+      if (closeBy > 1 && currentZoom < maxZoom - 1) {
+        // zoom in two levels (you can tweak the +2)
+        map.setView(marker.getLatLng(), currentZoom + 8, { animate: true });
+      } else {
+        // just show the popup
+        marker.openPopup();
+      }
+    });
   });
 
 
@@ -235,4 +286,4 @@ $(window).load(function(){
     portfolioIsotope.isotope({ filter: $(this).data('filter') });
   });
 
-})
+});

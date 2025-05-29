@@ -460,14 +460,118 @@ nav ul li a {
   text-align: center;
 }
 #map-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
   color: var(--primary-color);
+  font-weight: 600;
 }
 #memories-map {
   width: 100%;
-  height: 500px;
-  border-radius: 1.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  height: 600px;
+  border-radius: 2rem;
+  overflow: hidden;
   margin: 0 auto;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+.leaflet-container {
+  border-radius: 2rem;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.leaflet-popup-tip {
+  background: white;
+}
+.custom-div-icon i {
+  color: #FFB6C1;
+  font-size: 1.75rem;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ===========================================================================
+   Navbar Styles - Add this to your existing style.css
+   =========================================================================== */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.97);
+  z-index: 1000;
+  padding: 15px 0;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  display: block !important; /* Force display */
+}
+
+#navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+#navbar .logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #FFB6C1;
+  letter-spacing: 1px;
+}
+
+#navbar .nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#navbar .nav-menu li {
+  margin-left: 30px;
+}
+
+#navbar .nav-menu li a {
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+  padding: 5px 0;
+  position: relative;
+}
+
+#navbar .nav-menu li a:hover,
+#navbar .nav-menu li a.active {
+  color: #FFB6C1;
+}
+
+#navbar .nav-menu li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #FFB6C1;
+  transition: width 0.3s;
+}
+
+#navbar .nav-menu li a:hover::after,
+#navbar .nav-menu li a.active::after {
+  width: 100%;
+}
+
+#navbar .responsive {
+  display: none;
+  font-size: 24px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* Add scroll padding to sections */
+#gallery, #map-section, #ag-timeline-block {
+  scroll-margin-top: 80px;
 }

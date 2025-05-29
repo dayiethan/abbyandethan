@@ -35,6 +35,11 @@
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
 
   <!-- =======================================================
     Theme Name: Folio
@@ -112,28 +117,50 @@ input::-moz-focus-inner {
 <body>
 
   <script>
-    document.addEventListener('mousemove', function(e){
-      let body = document.querySelector('body');
-      let heart = document.createElement('span');
-      let x = e.clientX;
-      let y = e.clientY;
-      heart.style.left = x+'px'
-      heart.style.top = y+'px'
+  document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('mousemove', e => {
+      // if the pointer is over the map container or any Leaflet element, do nothing
+      if (
+        e.target.closest('#memories-map') ||      // your map div
+        e.target.closest('.leaflet-container') || // the main Leaflet pane
+        e.target.closest('.leaflet-pane')         // any Leaflet sub-pane
+      ) {
+        return;
+      }
 
-      let size = Math.random() * 80;
-      heart.style.width = 20 + size+'px';
-      heart.style.height = 20 + size+'px';
+      // otherwise, spawn the heart
+      const heart = document.createElement('span');
+      heart.className = 'cursor-heart';  // optional, for CSS styling
+      const size = 20 + Math.random() * 80;
+      heart.style.width  = size + 'px';
+      heart.style.height = size + 'px';
+      heart.style.left   = e.pageX + 'px';
+      heart.style.top    = e.pageY + 'px';
+      heart.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
 
-      let transformValue = Math.random() * 360;
-      heart.style.transform = 'rotate(' + transformValue + 'deg)';
-
-      body.appendChild(heart);
-
-      setTimeout(function(){
-        heart.remove()
-      },500)
-    })
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 500);
+    });
+  });
   </script>
+
+
+
+  <!-- Start Navbar -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="logo">Abby & Ethan</div>
+      <ul class="nav-menu">
+        <li><a href="#header" class="active">Home</a></li>
+        <li><a href="#countdown">Countdown</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#map-section">Map</a></li>
+        <li><a href="#ag-timeline-block">Timeline</a></li>
+      </ul>
+      <div class="responsive"><i class="ion-navicon"></i></div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
 
 
   <!-- start section header -->
@@ -172,7 +199,7 @@ input::-moz-focus-inner {
 
 
   <!-- start section gallery -->
-  <div class="gallery">
+  <div class="gallery" id="gallery">
     <div class="gallery__column">
       <a href="https://www.instagram.com/p/CeLuVMjOs7AyYmLU_Skhia6JZ8fQQ09AizE0uE0/" target="_blank" class="gallery__link">
         <figure class="gallery__thumb">
@@ -575,10 +602,10 @@ input::-moz-focus-inner {
   
 
   <!-- start section map -->
-  <!-- <section id="map-section">
+  <section id="map-section">
     <h2>Our Memories Map</h2>
     <div id="memories-map"></div>
-  </section> -->
+  </section>
   <!-- end section map -->
 
 
@@ -586,7 +613,7 @@ input::-moz-focus-inner {
 
   <!-- start section timeline -->
   <!-- partial:index.partial.html -->
-  <div class="ag-timeline-block">
+  <div class="ag-timeline-block" id="ag-timeline-block">
     <div class="ag-timeline_title-box">
       <div class="ag-timeline_tagline">Our Timeline!</div>
     </div>

@@ -372,3 +372,22 @@
     margin-right: 0;
   }
 }
+
+@media (max-width: 768px) {
+  #countdown {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+  }
+  #countdown .count-item {
+    padding: 1.5rem;
+  }
+  #countdown .count-item p {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #memories-map {
+    height: 300px;
+  }
+}

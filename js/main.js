@@ -135,6 +135,87 @@ $(document).ready(function() {
   // Call the functions
   magnifPopup();
 
+   // ===== Countdown Section =====
+  const startDate    = new Date('2021-07-30T00:00:00');
+  const daysCountEl  = document.getElementById('daysCount');
+  const annivCountEl = document.getElementById('annivCountdown');
+
+  // Helper: compute full years/months/days difference
+  function getYMDDiff(start, end) {
+    const sy = start.getFullYear(), sm = start.getMonth(), sd = start.getDate();
+    const ey = end.getFullYear(),   em = end.getMonth(),   ed = end.getDate();
+
+    let years  = ey - sy;
+    let months = em - sm;
+    let days   = ed - sd;
+
+    // If days negative, borrow from previous month
+    if (days < 0) {
+      months--;
+      const prevMonth = (em - 1 + 12) % 12;
+      const prevYear  = em === 0 ? ey - 1 : ey;
+      const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate();
+      days += daysInPrevMonth;
+    }
+    // If months negative, borrow from years
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    return { years, months, days };
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+
+    // 1) Years-Months-Days Together
+    const { years, months, days } = getYMDDiff(startDate, now);
+    daysCountEl.textContent =
+      `${years} year${years !== 1 ? 's' : ''} ` +
+      `${months} month${months !== 1 ? 's' : ''} ` +
+      `${days} day${days !== 1 ? 's' : ''}`;
+
+    // 2) Next Anniversary countdown (X days HH:MM:SS)
+    let year = now.getFullYear();
+    let nextAnniv = new Date(`${year}-07-30T00:00:00`);
+    if (nextAnniv <= now) {
+      nextAnniv.setFullYear(year + 1);
+    }
+    const remMs = nextAnniv - now;
+    const d  = Math.floor(remMs / (1000 * 60 * 60 * 24));
+    const h  = String(Math.floor((remMs / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+    const m  = String(Math.floor((remMs / (1000 * 60)) % 60)).padStart(2, '0');
+    const s  = String(Math.floor((remMs / 1000) % 60)).padStart(2, '0');
+
+    annivCountEl.textContent = `${d} days ${h}:${m}:${s}`;
+  }
+
+  // Initialize and update every second
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ---- Memories Map ----
+  const map = L.map('memories-map').setView([34.0522, -118.2437], 4);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18,
+  }).addTo(map);
+
+  // array of memory locations: [lat, lng] + popup text
+  const memories = [
+    { coords: [34.0522, -118.2437], popup: 'Where we first met (LA)' },
+    { coords: [40.7128, -74.0060], popup: 'Our NYC weekend getaway' },
+    // add more as desired
+  ];
+
+  memories.forEach(({ coords, popup }) => {
+    L.marker(coords)
+      .addTo(map)
+      .bindPopup(`<strong>${popup}</strong>`);
+  });
+
+
 });
 
 // ========================================================================= //

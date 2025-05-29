@@ -354,6 +354,51 @@ nav ul li a {
 
 
 /*----------------------------------------------------------------------------------*/
+/*  Countdown
+/*-----------------------------------------------------------------------------------*/
+
+#countdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: stretch;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%);
+  padding: 4rem 2rem;
+  border-radius: 2rem;
+  margin: 3rem 0;
+}
+
+#countdown .count-item {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#countdown .count-item h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#countdown .count-item p {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1;
+}
+
+
+
+
+/*----------------------------------------------------------------------------------*/
 /*  Gallery
 /*-----------------------------------------------------------------------------------*/
 
@@ -406,3 +451,23 @@ nav ul li a {
   transition: 0.3s;
 }
 
+/*----------------------------------------------------------------------------------*/
+/*  Memories Map
+/*-----------------------------------------------------------------------------------*/
+
+#map-section {
+  margin: 4rem 0;
+  text-align: center;
+}
+#map-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+#memories-map {
+  width: 100%;
+  height: 500px;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}

@@ -33,6 +33,9 @@
   <!-- Favicon -->
   <link rel="shortcut icon" href="images/heart.png">
 
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
   <!-- =======================================================
     Theme Name: Folio
     Theme URL: https://bootstrapmade.com/folio-bootstrap-portfolio-template/
@@ -152,6 +155,20 @@ input::-moz-focus-inner {
     </div>
   </div>
   <!-- End section header -->
+
+
+  <!-- ↓↓↓ Countdown Section ↓↓↓ -->
+<section id="countdown">
+  <div class="count-item">
+    <h2>Days Together</h2>
+    <p id="daysCount">0</p>
+  </div>
+  <div class="count-item">
+    <h2>Next Anniversary</h2>
+    <p id="annivCountdown">0 days 00:00:00</p>
+  </div>
+</section>
+<!-- ↑↑↑ End Countdown Section ↑↑↑ -->
 
 
   <!-- start section gallery -->
@@ -557,9 +574,12 @@ input::-moz-focus-inner {
   <!-- end section gallery -->
   
 
-
-
-
+  <!-- start section map -->
+  <!-- <section id="map-section">
+    <h2>Our Memories Map</h2>
+    <div id="memories-map"></div>
+  </section> -->
+  <!-- end section map -->
 
 
 
@@ -960,6 +980,56 @@ input::-moz-focus-inner {
                 <div class="ag-timeline-card_arrow"></div>
               </div>
             </div>
+
+            <div class="js-timeline_item ag-timeline_item">
+              <div class="ag-timeline-card_box">
+                <div class="ag-timeline-card_meta-box">
+                  <div class="ag-timeline-card_meta">MAY</div>
+                </div>
+                <div class="js-timeline-card_point-box ag-timeline-card_point-box">
+                  <div class="ag-timeline-card_point">2024</div>
+                </div>
+              </div>
+              <div class="ag-timeline-card_item">
+                <div class="ag-timeline-card_inner">
+                  <div class="ag-timeline-card_img-box">
+                    <img src="images/ethangrad.png" class="ag-timeline-card_img" width="640" height="450" alt="" />
+                  </div>
+                  <div class="ag-timeline-card_info">
+                    <div class="ag-timeline-card_title">MAY 2024</div>
+                    <div class="ag-timeline-card_desc">
+                      My turn to graduate! I'm so glad that you were able to make it and celebrate with me love!
+                    </div>
+                  </div>
+                </div>
+                <div class="ag-timeline-card_arrow"></div>
+              </div>
+            </div>
+
+            <div class="js-timeline_item ag-timeline_item">
+              <div class="ag-timeline-card_box">
+                <div class="js-timeline-card_point-box ag-timeline-card_point-box">
+                  <div class="ag-timeline-card_point">2024</div>
+                </div>
+                <div class="ag-timeline-card_meta-box">
+                  <div class="ag-timeline-card_meta">JULY</div>
+                </div>
+              </div>
+              <div class="ag-timeline-card_item">
+                <div class="ag-timeline-card_inner">
+                  <div class="ag-timeline-card_img-box">
+                    <img src="images/china.png" class="ag-timeline-card_img" width="640" height="450" alt="" />
+                  </div>
+                  <div class="ag-timeline-card_info">
+                    <div class="ag-timeline-card_title">JUL 2024</div>
+                    <div class="ag-timeline-card_desc">
+                      We made it to China! A huge trip for us to enjoy together and I loved it so much. I can't wait to continue traveling with you beautiful!
+                    </div>
+                  </div>
+                </div>
+                <div class="ag-timeline-card_arrow"></div>
+              </div>
+            </div>
   
 <!--             <div class="js-timeline_item ag-timeline_item">
               <div class="ag-timeline-card_box">
@@ -1056,17 +1126,9 @@ input::-moz-focus-inner {
   </div>
   <!-- partial -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script><script  src="timeline/script.js"></script>
-  
-  </body>
 
   <!-- end section timeline -->
 
-
-
-
-
-  
-  </script>
   
     <!-- JavaScript Libraries -->
     <script src="lib/jquery/jquery.min.js"></script>
@@ -1082,5 +1144,7 @@ input::-moz-focus-inner {
   
     <!-- Template Main Javascript File -->
     <script src="js/main.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   
+    </body>
     </html>
